@@ -1,6 +1,6 @@
 {
   "name": "vue3-class",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The property decorators for Vue 3.0+ Component",
   "main": "lib/index.umd.js",
   "module": "lib/index.js",

@@ -13,7 +13,8 @@ import {
     ComponentObjectPropsOptions,
     EmitsOptions,
     ShallowUnwrapRef,
-    Ref
+    Ref,
+    getCurrentInstance
 } from 'vue'
 
 
@@ -406,6 +407,14 @@ class VueImpl {
         defineGetter(this, '$attrs', () => ctx.attrs)
         defineGetter(this, '$slots', () => ctx.slots)
         defineGetter(this, '$emit', () => ctx.emit)
+
+        const cins = getCurrentInstance();
+        if(cins) {
+            const gps = cins.appContext.config.globalProperties;
+            Object.keys(gps).forEach(name => {
+                defineGetter(this, name as any, () => gps[name])
+            });
+        }
 
         Object.keys(props).forEach((key) => {
             Object.defineProperty(this, key, {
